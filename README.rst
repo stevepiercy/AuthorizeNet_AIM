@@ -1,8 +1,8 @@
 AuthorizeNet_AIM - Payment processing tag for Lasso Professional 8 and the Authorize.Net AIM v3.1 payment processing gateway
 ############################################################################################################################
 
-The project `AuthorizeNet_AIM <https://github.com/stevepiercy/AuthorizeNet_AIM>`_
-and its source files are hosted on GitHub.
+Prettier documentation is hosted on my `website
+http://www.stevepiercy.com/lasso-authorizenet-aim.html`_.
 
 Description
 ===========
