@@ -25,7 +25,6 @@ If you like this tag or documentation, or think I need to spend less time at the
 
 Duke accepts donations of biscuits and cabbages.  woof.
 
-
 Usage
 -----
 
