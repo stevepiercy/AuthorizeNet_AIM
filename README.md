@@ -105,14 +105,13 @@ Here is a code sample that sends an authorize-only transaction to the Authorize.
     $results;
     ]
 
+See the comments embedded in the tag's code for proper configuration.
+
 For rapid testing:
 
-* Create a new file.
-* Paste the `AuthorizeNet_AIM` tag into it.
-* Copy the snippet above, and paste it after the tag.
-* Save and load the page to see the results.
-
-See the comments embedded in the tag's code for proper configuration.
+* Copy the files `AuthorizeNet_AIM.inc` and `AuthorizeNet_AIM.lasso` to your web server.
+* Configure settings in both files accordingly.  The settings in the latter override the former.
+* Save and load `AuthorizeNet_AIM.lasso` to see the results.
 
 Additional eCommerce Resources
 ------------------------------
