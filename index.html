@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link href='https://fonts.googleapis.com/css?family=Architects+Daughter' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="stylesheets/pygment_trac.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print" />
+
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <title>AuthorizeNet_AIM by stevepiercy</title>
+  </head>
+
+  <body>
+    <header>
+      <div class="inner">
+        <h1>AuthorizeNet_AIM</h1>
+        <h2>Payment processing tag for Lasso 8 and the Authorize.net AIM v3.1 payment processing gateway</h2>
+        <a href="https://github.com/stevepiercy/AuthorizeNet_AIM" class="button"><small>View project on</small>GitHub</a>
+      </div>
+    </header>
+
+    <div id="content-wrapper">
+      <div class="inner clearfix">
+        <section id="main-content">
+          <h1>
+<a name="authorizenet_aim" class="anchor" href="#authorizenet_aim"><span class="octicon octicon-link"></span></a>AuthorizeNet_AIM</h1>
+
+<p>Payment processing tag for Lasso 8 and the Authorize.net AIM v3.1 payment processing gateway.</p>
+
+<h2>
+<a name="description" class="anchor" href="#description"><span class="octicon octicon-link"></span></a>Description</h2>
+
+<p>This tag is an update to the AuthorizeNet_AIM payment processing tag for Lasso 8 and the new Authorize.net AIM v3.1 payment processing gateway.</p>
+
+<p>This tag has one required parameter, <code>-AIMParams</code>, and two optional parameters, <code>-testdeveloper</code> and <code>-testrequest</code>.</p>
+
+<p><code>-AIMParams</code> is an unnamed map of name/value pairs representing the parameters to be passed to Authorize.Net.</p>
+
+<p><code>-testdeveloper</code> is a boolean that when <code>TRUE</code> submits a test transaction to Authorize.Net's "test" URL.  Default is <code>FALSE</code>.</p>
+
+<p><code>-testrequest</code> is a boolean that when <code>TRUE</code> submits a test transaction request to the designated URL ("test" or "secure") as set in the tag configuration or by the <code>-testdeveloper</code> keyword parameter.  Default is <code>FALSE</code>.</p>
+
+<p>This tag returns a value which is either a string or a map.  If the returned value is a string, the string is a plain text error message returned by Authorize.Net indicating that you have not properly configured the Authorize.Net Merchant Interface or this tag's settings.  If the returned value is a map, it contains the key/value pairs of non-empty parameters in the reponse returned by the Authorize.Net gateway.</p>
+
+<h2>
+<a name="support-free-and-open-source-software-contributions" class="anchor" href="#support-free-and-open-source-software-contributions"><span class="octicon octicon-link"></span></a>Support Free and Open Source Software Contributions</h2>
+
+<p>If you like this tag or documentation, or think I need to spend less time at the computer and take my wife out on a date night, then consider sending either a recurring donation via <a href="https://www.gittip.com/stevepiercy/">GitTip</a> for as small as 25¢ per week, or a one-time donation via <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_donations&amp;business=web%40stevepiercy%2ecom&amp;lc=US&amp;item_name=Steve%20Piercy%20%2d%20Website%20Builder&amp;item_number=spwb&amp;currency_code=USD&amp;bn=PP%2dDonationsBF%3adonate_now%2epng%3aNonHosted">PayPal</a>.</p>
+
+<p>Duke accepts donations of biscuits and cabbages.  woof.</p>
+
+<h2>
+<a name="usage" class="anchor" href="#usage"><span class="octicon octicon-link"></span></a>Usage</h2>
+
+<p>It is highly recommend to store this file on your web server in a location that cannot be served, preferably outside of your web root.  You do <em>not</em> want your login or transaction key to be served as a plain text file.</p>
+
+<h3>
+<a name="1-configure" class="anchor" href="#1-configure"><span class="octicon octicon-link"></span></a>1. Configure</h3>
+
+<p>In your page that calls [AuthorizeNet_AIM], build a map of parameters to send to the tag.</p>
+
+<pre><code>var('AIMParams') = map(
+    'x_first_name'  = $first_name,
+    'x_last_name'   = $last_name,
+    'x_amount'      = $amount,
+... and so on...);
+</code></pre>
+
+<h3>
+<a name="2-set-a-variable-to-the-method" class="anchor" href="#2-set-a-variable-to-the-method"><span class="octicon octicon-link"></span></a>2. Set a variable to the method</h3>
+
+<p>When calling [AuthorizeNet_AIM], store the results in a variable.  This will allow you to easily code logic in your page to take appropriate action based on the results (Response Code, etc.) from Authorize.net.</p>
+
+<pre><code>var('aim_results') = AuthorizeNet_AIM($AIMParams);
+</code></pre>
+
+<p>Optionally, use the following following parameters:</p>
+
+<p><code>-testdeveloper=TRUE</code> submits a test transaction to Authorize.Net's "test" URL.  Default is <code>FALSE</code>.</p>
+
+<p><code>-testrequest=TRUE</code> submits a test transaction request to the designated URL ("test" or "secure") as set in the tag configuration or by the <code>-testdeveloper</code> keyword parameter.  Default is <code>FALSE</code>.</p>
+
+<p>The following sends a map of parameters to the tag, which posts the parameters to Authorize.net's test server as a test transaction request.</p>
+
+<pre><code>var('aim_results') = AuthorizeNet_AIM($AIMParams,-testdeveloper=TRUE,-testrequest=TRUE);
+</code></pre>
+
+<h3>
+<a name="3-sample-page-logic" class="anchor" href="#3-sample-page-logic"><span class="octicon octicon-link"></span></a>3. Sample page logic</h3>
+
+<pre><code>// evaluate results and make appropriate decisions
+if($aim_results-&gt;find('x_response_code') == '1');
+    // transaction approved
+else;
+    // transaction failed
+    select($aim_results-&gt;find('x_response_code'));
+        case('2');
+            //  declined
+        case('3');
+            //  transaction processing error
+        case('4');
+            //  held for review
+        case;
+            //  undefined error
+    /select;
+/if;
+</code></pre>
+
+<h3>
+<a name="4-sample-message" class="anchor" href="#4-sample-message"><span class="octicon octicon-link"></span></a>4. Sample message</h3>
+
+<p>I recommend displaying a simple error message "Your request could not be processed.  Please contact us at <code>_____</code> during normal business hours."  Don't encourage them to try again because it will just frustrate them, or possibly cause much worse problems (multiple payments, trigger an over limit event, trigger a fraud alert with the card issuer, etc.).  And in the case of actual fraud, you don't want to tip off the fraudster of why the transaction was declined.</p>
+
+<pre><code>$sample_msg-&gt;append('Thank you, ' + $aim_results-&gt;find('x_first_name')
+    + '!  You have personally enriched me by $'
+    + $aim_results-&gt;find('x_amount') + '.');
+</code></pre>
+
+<h3>
+<a name="5-custom-labels" class="anchor" href="#5-custom-labels"><span class="octicon octicon-link"></span></a>5. Custom labels</h3>
+
+<p>You can add merchant-defined results labels to <code>#aimresultlabels</code>, and access them after they are echoed by Authorize.Net.</p>
+
+<h3>
+<a name="6-summary" class="anchor" href="#6-summary"><span class="octicon octicon-link"></span></a>6. Summary</h3>
+
+<p>Here is a code sample that sends an authorize-only transaction to the Authorize.Net test server.</p>
+
+<pre><code>[
+var('AIMParams') = map(
+    'x_login'='ENTER_YOUR_LOGIN',
+    'x_tran_key'='ENTER_YOUR_TRANSACTION_KEY',
+    'x_type'='auth_only,
+    'x_card_num'='5424000000000015',    // dummy CC#
+    'x_exp_date'='1220',                // December 2020
+    'x_amount'='0.01');
+
+var('results') = authorizenet_aim($AIMParams,-testdeveloper=true);
+$results;
+]
+</code></pre>
+
+<p>See the comments embedded in the tag's code for proper configuration.</p>
+
+<p>For rapid testing:</p>
+
+<ul>
+<li>Copy the files <code>AuthorizeNet_AIM.inc</code> and <code>AuthorizeNet_AIM.lasso</code> to your web server.</li>
+<li>Configure settings in both files accordingly.  The settings in the latter override the former.</li>
+<li>Save and load <code>AuthorizeNet_AIM.lasso</code> to see the results.</li>
+</ul><h2>
+<a name="additional-ecommerce-resources" class="anchor" href="#additional-ecommerce-resources"><span class="octicon octicon-link"></span></a>Additional eCommerce Resources</h2>
+
+<p>The following information does not constitute an endorsement, warranty or guarantee of service.  This information is provided for the sake of comparison.  These are the lowest fees I have found over the years.</p>
+
+<p>For further information on developing for AIM, download the <a href="http://www.authorize.net/support/AIM_guide.pdf">AIM Guide</a>.</p>
+
+<p>You can sign up for a <a href="https://developer.authorize.net/sandbox/">developer sandbox account</a>, or you can have the client purchase their own <a href="https://ems.authorize.net/oap/home.aspx?SalesRepID=39&amp;ResellerID=11937">Authorize.Net payment gateway account</a> and create a "webmaster" user that has the required access.</p>
+
+<p>In addition to this tag, the following are requirements.</p>
+
+<ol>
+<li>Dedicated IP for SSL (~$10/month).</li>
+<li>SSL.</li>
+<li>
+<a href="http://www.namecheap.com/?aff=26253">Secure certificate</a> (starting at $10/year from NameCheap.com)</li>
+<li>
+<a href="http://www.takecardstoday.com/index.php?partner=100434">Merchant account</a> that accepts payments over the Internet.  Some brick and mortar retailers already have a merchant account, so sometimes it is easier to add this feature to their existing merchant account.  If you need a merchant account, you can support the continued development of the <code>AuthorizeNet_AIM</code> tag using my <a href="http://www.takecardstoday.com/index.php?partner=100434">referral link</a>. As of May 28, 2014, the merchant account costs $8.95/month (for a statement fee), plus 2.14% of the transaction amount and 24¢ per transaction.  Everything else is free.</li>
+<li>payment gateway (an Authorize.Net account, for example). I am an Authorize.net account reseller. You can support the continued development of the AuthorizeNet_AIM tag by following my referral link. As of May 28, 2014, the cost is $17.95/month, plus $99.00 account setup, plus $0.10 per transaction.</li>
+</ol><p>I am available as a consultant for ecommerce solutions.  Please visit <a href="http://www.stevepiercy.com/services/">my website</a> for more information.</p>
+        </section>
+
+        <aside id="sidebar">
+          <a href="https://github.com/stevepiercy/AuthorizeNet_AIM/zipball/master" class="button">
+            <small>Download</small>
+            .zip file
+          </a>
+          <a href="https://github.com/stevepiercy/AuthorizeNet_AIM/tarball/master" class="button">
+            <small>Download</small>
+            .tar.gz file
+          </a>
+
+          <p class="repo-owner"><a href="https://github.com/stevepiercy/AuthorizeNet_AIM"></a> is maintained by <a href="https://github.com/stevepiercy">stevepiercy</a>.</p>
+
+          <p>This page was generated by <a href="https://pages.github.com">GitHub Pages</a> using the Architect theme by <a href="https://twitter.com/jasonlong">Jason Long</a>.</p>
+        </aside>
+      </div>
+    </div>
+
+            <script type="text/javascript">
+            var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+            document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+          </script>
+          <script type="text/javascript">
+            try {
+              var pageTracker = _gat._getTracker("UA-51103448-1");
+            pageTracker._trackPageview();
+            } catch(err) {}
+          </script>
+
+  </body>
+</html>
