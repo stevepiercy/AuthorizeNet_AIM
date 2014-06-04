@@ -76,6 +76,41 @@ file.
 1. Configure
 ------------
 
+Configuration includes:
+
+* configuring the Authorize.Net website Merchant Interface,
+* setting values in this tag, and
+* passing values into this tag as a map of key/values.
+
+Authorize.Net Merchant Interface
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+In the Authorize.Net Merchant Interface `Account > Settings > API Login ID and
+Transaction Key`, obtain your transaction key.
+
+Edit this method by entering your transaction key, and saving the file.
+
+Next configure the response delimiter character, under `Account > Settings >
+Direct Response`.
+
+Use a pipe and no encapsulation characters:
+
+==============================  =====================
+Delimited Response              ``(X) Yes  ( ) No``
+Default Field Separator 	    ``| (pipe)  or [ ]``
+Field Encapsulation Character   ``[blank] or  [ ]``
+==============================  =====================
+
+If you do not use the above settings, then you must change the corresponding
+values as defined elsewhere in this tag.
+
+Setting values in this method or by passing in parameters
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+You can choose to either set configuration values in this tag below, or pass
+them in as values in the map of AIM parameters.  Any values passed into this
+tag will override their corresponding values entered below.
+
 In your page that calls ``[AuthorizeNet_AIM]``, build a map of parameters to
 send to the tag.
 
@@ -179,7 +214,7 @@ Authorize.Net test server.
         'x_exp_date'='1220',                // December 2020
         'x_amount'='0.01');
 
-    var('results') = authorizenet_aim($AIMParams,-testdeveloper=true);
+    var('results') = authorizenet_aim($AIMParams, -testdeveloper=true);
     $results;
     ]
 
