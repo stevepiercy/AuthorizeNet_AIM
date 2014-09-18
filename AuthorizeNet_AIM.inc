@@ -181,9 +181,8 @@ The following commented parameters should be set through the merchant web interf
 
 
 // Send parameters to Authorize.Net.  Cross fingers.
-    return (#AIMParamArray);
     #AIMResult = string(include_url(#AIMURL, -postparams=#AIMParamArray));
-    return (#AIMResult);
+
 /* 
 The character used in the following split must be the same as the character you use in your Authorize.Net settings:
 
