@@ -263,8 +263,9 @@ In addition to this tag, the following are requirements.
    Authorize.Net account reseller. You can support the continued development
    of the ``AuthorizeNet_AIM`` tag by following my `reseller link
    <http://reseller.authorize.net/application/signupnow/?id=NAAffiliate&rid=11937>`_.
-   As of May 28, 2014, the cost is $17.95/month, plus $99.00 account setup,
-   plus $0.10 per transaction.
+   Effective November 7, 2014, the cost is $25/month, with $49 account setup
+   fee, $0.10 per transaction, and $0.10 per batch of transactions in a given
+   day.
 
 I am available as a consultant for ecommerce solutions. Please visit `Services
 </services/>`_ for more information.
