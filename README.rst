@@ -241,7 +241,7 @@ For further information on developing for AIM, download the `AIM Guide
 You can sign up for a `developer sandbox account
 <https://developer.Authorize.Net/sandbox/>`_, or you can have the client
 purchase their own `Authorize.Net payment gateway account
-<http://reseller.authorize.net/application/signupnow/?id=NAAffiliate&rid=11937>`_ and
+<http://reseller.authorize.net/application?resellerId=11937>`_ and
 create a "webmaster" user that has the required access.
 
 In addition to this tag, the following are requirements.
@@ -262,7 +262,7 @@ In addition to this tag, the following are requirements.
 #. payment gateway (an Authorize.Net account, for example). I am an
    Authorize.Net account reseller. You can support the continued development
    of the ``AuthorizeNet_AIM`` tag by following my `reseller link
-   <http://reseller.authorize.net/application/signupnow/?id=NAAffiliate&rid=11937>`_.
+   <http://reseller.authorize.net/application?resellerId=11937>`_.
    Effective November 7, 2014, the cost is $25/month, with $49 account setup
    fee, $0.10 per transaction, and $0.10 per batch of transactions in a given
    day.
