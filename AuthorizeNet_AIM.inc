@@ -77,7 +77,7 @@ Note that you can still submit test transactions to 'secure' either by setting t
     if(#testdeveloper == true);
         #AIMURL = 'https://test.Authorize.Net/gateway/transact.dll';
     else;
-        #AIMURL = 'https://secure.Authorize.Net/gateway/transact.dll';
+        #AIMURL = 'https://secure2.authorize.net/gateway/transact.dll';
     /if;
 
     if(local_defined('testrequest'));
