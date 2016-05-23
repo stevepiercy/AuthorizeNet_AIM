@@ -117,9 +117,9 @@ send to the tag.
 .. code-block:: lasso
 
     var('AIMParams') = map(
-        'x_first_name'	= $first_name,
-        'x_last_name'	= $last_name,
-        'x_amount'		= $amount,
+        'x_first_name'  = $first_name,
+        'x_last_name'   = $last_name,
+        'x_amount'      = $amount,
     ... and so on...);
 
 2. Set a variable to the method
