@@ -142,15 +142,29 @@ URL.  Default is ``FALSE``.
 ("test" or "secure") as set in the tag configuration or by the
 ``-testdeveloper`` keyword parameter.  Default is ``FALSE``.
 
+``-curl=TRUE`` submits parameters via ``cURL``, ``os_process``, and ``shell``,
+instead of Lasso's ``include_url``. It also checks for the installation of
+both ``os_process`` and ``shell``, and returns an error if they are not. This
+is a workaround for a `bug reported to LassoSoft on March 19, 2016
+<http://www.lassosoft.com/rhinotrac?id=8010>`_ and `discussed on LassoTalk
+<http://lasso.2283332.n4.nabble.com/Lasso-8-6-3-and-TLS-1-2-tt4644921.html>`_.
+Default is ``FALSE``.
+
+``-tlsv12=TRUE`` uses TLS v1.2 when executing ``cURL`` and when ``-curl`` is
+``TRUE``. If ``-curl`` is ``FALSE``, then this setting is ignored. Default is
+``FALSE``.
+
 The following sends a map of parameters to the tag, which posts the parameters
 to Authorize.Net's test server as a test transaction request.
 
 .. code-block:: lasso
 
-	var('aim_results') = AuthorizeNet_AIM(
-	    $AIMParams,
-	    -testdeveloper=TRUE,
-	    -testrequest=TRUE);
+    var('aim_results') = AuthorizeNet_AIM(
+        $AIMParams,
+        -testdeveloper=TRUE,
+        -testrequest=TRUE,
+        -curl=TRUE,
+        -tlsv12=TRUE);
 
 3. Sample page logic
 --------------------

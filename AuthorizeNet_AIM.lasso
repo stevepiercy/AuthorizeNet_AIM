@@ -15,6 +15,8 @@ var('results') = authorizenet_aim(
     $AIMParams,
     -testdeveloper=true,    // change as needed
     -testrequest=false,     // change as needed
+    -curl=true,             // change as needed
+    -tlsv12=true,           // change as needed
 );
 ]
 <textarea rows="40" cols="80">[$results]</textarea>

@@ -5,6 +5,8 @@ define_tag(
     -criteria=(#AIMParams->type == 'map'),
     -optional='testdeveloper', -type='boolean',
     -optional='testrequest', -type='boolean',
+    -optional='curl', -type='boolean',
+    -optional='tlsv12', -type='boolean',
     -description = 'Sends a map of parameters to Authorize.Net for transaction processing, and returns the response of the transaction.');
 
 /*
@@ -64,9 +66,19 @@ You can choose to either set configuration values in this tag below or pass them
         'AIMResultArray'        = array,
         'AIMResultLabelArray'   = array,
         'AIMCurrentResultLabel' = null,
-        'output'                = null);
+        'curl_post_data'        = string,
+        'output'                = null,
+        );
 
     !local_defined('testdeveloper') ? local('testdeveloper') = false;
+    !local_defined('curl') ? local('curl') = false;
+    !local_defined('tlsv12') ? local('tlsv12') = false;
+
+    // check for the existence of os_process and shell if curl is true
+    if(#curl);
+        fail_if(!lasso_tagexists('os_process'), -1000, '[os_process] is not installed and configured.');
+        fail_if(!lasso_tagexists('shell'), -1000, '[shell] is not installed and configured.');
+    /if;
 
 /*
 The following URL will be used to send your POST parameters to Authorize.Net.
@@ -102,6 +114,7 @@ The following commented parameters should be set through the merchant web interf
 
     iterate(#AIMParams, local('CurrentAIMParam'));
         #AIMParamArray->insert((#CurrentAIMParam->first)=(#CurrentAIMParam->second));
+        #curl ? #curl_post_data -> append(' -d ' + encode_url(#CurrentAIMParam -> first) + '=' + encode_url(#CurrentAIMParam -> second));
     /iterate;
 
 
@@ -181,8 +194,11 @@ The following commented parameters should be set through the merchant web interf
 
 
 // Send parameters to Authorize.Net.  Cross fingers.
-    #AIMResult = string(include_url(#AIMURL, -postparams=#AIMParamArray));
-
+    if(#curl);
+        #AIMResult = string(shell('curl ' +#AIMURL + #curl_post_data + (#tlsv12 ? ' --tlsv1.2' | '')));
+    else;
+        #AIMResult = string(include_url(#AIMURL, -postparams=#AIMParamArray));
+    /if;
 /* 
 The character used in the following split must be the same as the character you use in your Authorize.Net settings:
 
