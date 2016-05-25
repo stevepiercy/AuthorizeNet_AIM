@@ -264,12 +264,12 @@ In addition to this tag, the following are requirements.
 #. SSL.
 #. `Secure certificate <http://www.namecheap.com/?aff=26253>`_ (starting at
    $10/year from NameCheap.com)
-#. `Merchant account <http://www.takecardstoday.com/index.php?partner=100434>`_
+#. `Merchant account <http://www.takecardstoday.com/#oid=1457_2>`_
    that accepts payments over the Internet.  Some brick and mortar retailers
    already have a merchant account, so sometimes it is easier to add this
    feature to their existing merchant account. If you need a merchant account,
    you can support the continued development of the ``AuthorizeNet_AIM`` tag
-   using my `referral link <http://www.takecardstoday.com/index.php?partner=100434>`_.
+   using my `referral link <http://www.takecardstoday.com/#oid=1457_2>`_.
    As of May 28, 2014, the merchant account costs $8.95/month (for a statement
    fee), plus 2.14% of the transaction amount and 24¢ per transaction.
    Everything else is free.
