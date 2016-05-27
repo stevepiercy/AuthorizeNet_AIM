@@ -116,10 +116,10 @@ send to the tag.
 
 .. code-block:: lasso
 
-    var('AIMParams') = map(
-        'x_first_name'  = $first_name,
-        'x_last_name'   = $last_name,
-        'x_amount'      = $amount,
+    local('AIMParams') = map(
+        'x_first_name'  = #first_name,
+        'x_last_name'   = #last_name,
+        'x_amount'      = #amount,
     ... and so on...);
 
 2. Set a variable to the method
@@ -131,7 +131,7 @@ based on the results (Response Code, etc.) from Authorize.Net.
 
 .. code-block:: lasso
 
-    var('aim_results') = AuthorizeNet_AIM($AIMParams);
+    local('aim_results') = AuthorizeNet_AIM(#AIMParams);
 
 Optionally, use the following following parameters.
 
@@ -159,8 +159,8 @@ to Authorize.Net's test server as a test transaction request.
 
 .. code-block:: lasso
 
-    var('aim_results') = AuthorizeNet_AIM(
-        $AIMParams,
+    local('aim_results') = AuthorizeNet_AIM(
+        #AIMParams,
         -testdeveloper=TRUE,
         -testrequest=TRUE,
         -curl=TRUE,
@@ -172,11 +172,11 @@ to Authorize.Net's test server as a test transaction request.
 .. code-block:: lasso
 
     // evaluate results and make appropriate decisions
-    if($aim_results->find('x_response_code') == '1');
+    if(#aim_results -> find('x_response_code') == '1');
         // transaction approved
     else;
         // transaction failed
-        select($aim_results->find('x_response_code'));
+        select(#aim_results -> find('x_response_code'));
             case('2');
                 //  declined
             case('3');
@@ -201,9 +201,9 @@ declined.
 
 .. code-block:: lasso
 
-    $sample_msg->append('Thank you, ' + $aim_results->find('x_first_name')
+    #sample_msg -> append('Thank you, ' + #aim_results -> find('x_first_name')
         + '!  You have personally enriched me by $'
-        + $aim_results->find('x_amount') + '.');
+        + #aim_results -> find('x_amount') + '.');
 
 5. Custom labels
 ----------------
@@ -220,7 +220,7 @@ Authorize.Net test server.
 .. code-block:: lasso
 
     [
-    var('AIMParams') = map(
+    local('AIMParams') = map(
         'x_login'='ENTER_YOUR_LOGIN',
         'x_tran_key'='ENTER_YOUR_TRANSACTION_KEY',
         'x_type'='auth_only',
@@ -228,8 +228,8 @@ Authorize.Net test server.
         'x_exp_date'='1220',                // December 2020
         'x_amount'='0.01');
 
-    var('results') = authorizenet_aim($AIMParams, -testdeveloper=true);
-    $results;
+    local('results') = authorizenet_aim(#AIMParams, -testdeveloper=true);
+    #results;
     ]
 
 See the comments embedded in the tag's code for proper configuration.
