@@ -50,13 +50,12 @@ You can choose to either set configuration values in this tag below or pass them
     // See the AIM Guide for other types and further requirements.
     local('x_type') = 'AUTH_CAPTURE';
 
-// If any of the following values have not been passed into this tag via the map of AIM parameters, then insert the configured values above.
+    // If any of the following values have not been passed into this tag via the map of AIM parameters, then insert the configured values above.
     #AIMParams -> find('x_login') == '' ? #AIMParams -> insert('x_login'=#x_login);
     #AIMParams -> find('x_tran_key') == '' ? #AIMParams -> insert('x_tran_key'=#x_tran_key);
     #AIMParams -> find('x_type') == '' ? #AIMParams -> insert('x_type'=#x_type);
 
-// Initialize variables
-
+    // Initialize variables
     local(
         'CurrentParam'          = null,
         'AIMParamArray'         = array,
@@ -87,7 +86,7 @@ The following URL will be used to send your POST parameters to Authorize.Net.
 Note that you can still submit test transactions to 'secure' either by setting the Authorize.Net merchant interface to TEST MODE or by submitting a transaction with the parameter 'x_test_request'='TRUE'.
 */
     if(#testdeveloper == true);
-        #AIMURL = 'https://test.Authorize.Net/gateway/transact.dll';
+        #AIMURL = 'https://test.authorize.net/gateway/transact.dll';
     else;
         #AIMURL = 'https://secure2.authorize.net/gateway/transact.dll';
     /if;
@@ -95,7 +94,7 @@ Note that you can still submit test transactions to 'secure' either by setting t
     if(local_defined('testrequest'));
         if(#testrequest=='true');
             // Send a test transaction request to the designated server.
-        #AIMParams -> insert('x_test_request'='TRUE');
+            #AIMParams -> insert('x_test_request'='TRUE');
         else;
             // Rely upon the TEST MODE configuration in the Authorize.Net Merchant Interface.  Omitting -testrequest is equivalent to setting it to FALSE.
             #AIMParams -> insert('x_test_request'='FALSE');
@@ -110,7 +109,7 @@ The following commented parameters should be set through the merchant web interf
 //  #AIMParams -> insert('x_version'='3.1');
 //  #AIMParams -> insert('x_delim_data'='TRUE');
 
-    #AIMParams -> insert('x_relay_response'='FALSE'); // Do not change
+    #AIMParams -> insert('x_relay_response'='FALSE');  // Do not change
 
     iterate(#AIMParams, local('CurrentAIMParam'));
         #AIMParamArray -> insert((#CurrentAIMParam -> first)=(#CurrentAIMParam -> second));
@@ -206,22 +205,27 @@ Account > Settings > Direct Response >  Direct Response Delimiter
 */
     #AIMResultArray = #AIMResult -> split('|');
 
-    if(#AIMResultArray -> Size == 1);
+    if(#AIMResultArray -> size == 1);
 // uh-oh.  There was a failure.  Check your configuration in the Merchant Interface or in this tag.
         #output = #AIMResult;
+
     else;
 // Yippee!  The gateway returned a response we can parse to determine whether the transaction was successful or has failed.
         #output = map;
         iterate(#AIMResultArray, local('current_result'));
+
             if(#aimresultlabels -> size > loop_count);
 // We are within the range of defined results labels.
                 local('current_label' = #aimresultlabels -> get(loop_count));
+
                 if(#current_result != '');
                     #output -> insert((#current_label)=(#current_result));
                 /if;
+
             else;
 // We are outside the range of defined results labels, and so we create ennumerated labels.
                 local('current_label' = 'x_out_of_range_label_'+loop_count);
+
                 if(#current_result != '');
                     #output -> insert((#current_label)=(#current_result));
                 /if;
