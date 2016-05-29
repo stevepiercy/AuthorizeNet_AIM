@@ -9,7 +9,8 @@ local('AIMParams') = map(
 //  'x_trans_id'='someid',
     'x_card_num'='5424000000000015',    // dummy CC#
     'x_exp_date'='1220',                // December 2020
-    'x_amount'='0.01');
+    'x_amount'='0.01',
+    );
 
 local('results') = authorizenet_aim(
     #AIMParams,
