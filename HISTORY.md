@@ -1,3 +1,9 @@
+1.7.0 (2016-05-25)
+==================
+* Added parameters ``curl`` and ``tlsv12`` to bypass bug in Lasso 8.6. This
+  allows the use of TLS v1.2 on systems that support the protocol.
+  See https://github.com/stevepiercy/AuthorizeNet_AIM/issues/2
+
 Version History: 1.6.0
 ======================
 * Date: Nov 5, 2010
