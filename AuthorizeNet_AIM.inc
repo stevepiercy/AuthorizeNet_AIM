@@ -79,12 +79,11 @@ You can choose to either set configuration values in this tag below or pass them
         fail_if(!lasso_tagexists('shell'), -1000, '[shell] is not installed and configured.');
     /if;
 
-/*
-The following URL will be used to send your POST parameters to Authorize.Net.
-'test' is used for testing your developer x_login and x_tran_key values, whereas 'secure' is used for testing your merchant account values.
+    /*
+    The following URL will be used to send your POST parameters to Authorize.Net. 'test' is used for testing your developer x_login and x_tran_key values, whereas 'secure' is used for testing your merchant account values.
 
-Note that you can still submit test transactions to 'secure' either by setting the Authorize.Net merchant interface to TEST MODE or by submitting a transaction with the parameter 'x_test_request'='TRUE'.
-*/
+    Note that you can still submit test transactions to 'secure' either by setting the Authorize.Net merchant interface to TEST MODE or by submitting a transaction with the parameter 'x_test_request'='TRUE'.
+    */
     if(#testdeveloper == true);
         #AIMURL = 'https://test.authorize.net/gateway/transact.dll';
     else;
@@ -96,19 +95,17 @@ Note that you can still submit test transactions to 'secure' either by setting t
             // Send a test transaction request to the designated server.
             #AIMParams -> insert('x_test_request'='TRUE');
         else;
-            // Rely upon the TEST MODE configuration in the Authorize.Net Merchant Interface.  Omitting -testrequest is equivalent to setting it to FALSE.
+            // Rely upon the TEST MODE configuration in the Authorize.Net Merchant Interface.  Omitting -testrequest is equivalent to setting it to 'FALSE'.
             #AIMParams -> insert('x_test_request'='FALSE');
         /if;
     /if;
 
-/*
-The following commented parameters should be set through the merchant web interface on Authorize.Net and are placed here for reference only.  However, if you set a parameter in Authorize.Net, comment it below; and if you do not set a parameter in Authorize.Net, then uncomment it here.  In other words, define parameters in one and only one place.
-*/
-
-//  #AIMParams -> insert('x_test_request'='FALSE');
-//  #AIMParams -> insert('x_version'='3.1');
-//  #AIMParams -> insert('x_delim_data'='TRUE');
-
+    /*
+    The following commented parameters should be set through the merchant web interface on Authorize.Net and are placed here for reference only.  However, if you set a parameter in Authorize.Net, comment it below; and if you do not set a parameter in Authorize.Net, then uncomment it here.  In other words, define parameters in one and only one place.
+    */
+    //  #AIMParams -> insert('x_test_request'='FALSE');
+    //  #AIMParams -> insert('x_version'='3.1');
+    //  #AIMParams -> insert('x_delim_data'='TRUE');
     #AIMParams -> insert('x_relay_response'='FALSE');  // Do not change
 
     iterate(#AIMParams, local('CurrentAIMParam'));
@@ -116,8 +113,7 @@ The following commented parameters should be set through the merchant web interf
         #curl ? #curl_post_data -> append(' -d ' + encode_url(#CurrentAIMParam -> first) + '=' + encode_url(#CurrentAIMParam -> second));
     /iterate;
 
-
-// The first 68 result labels are reserved by the AIM gateway for version 3.1.  Do not alter their order or names.
+    // The first 68 result labels are reserved by the AIM gateway for version 3.1.  Do not alter their order or names.
     local('aimresultlabels') = array(
         'x_response_code',
         'x_response_subcode',
@@ -187,47 +183,48 @@ The following commented parameters should be set through the merchant web interf
         '',
         '',
         '',
-// The following labels are optionally defined by the merchant and echoed by the AIM gateway.  If you do not add them here, they will not be echoed by the AIM Results Array and not added to the #output.
+        // The following labels are optionally defined by the merchant and echoed by the AIM gateway.  If you do not add them here, they will not be echoed by the AIM Results Array and not added to the #output.
         'x_comments',
         'x_another_example');
 
 
-// Send parameters to Authorize.Net.  Cross fingers.
+    // Send parameters to Authorize.Net.  Cross fingers.
     if(#curl);
         #AIMResult = string(shell('curl ' +#AIMURL + #curl_post_data + (#tlsv12 ? ' --tlsv1.2' | '')));
     else;
         #AIMResult = string(include_url(#AIMURL, -postparams=#AIMParamArray));
     /if;
-/* 
-The character used in the following split must be the same as the character you use in your Authorize.Net settings:
+    /*
+    The character used in the following split must be the same as the character you use in your Authorize.Net settings:
 
-Account > Settings > Direct Response >  Direct Response Delimiter
-*/
+    Account > Settings > Direct Response >  Direct Response Delimiter
+    */
     #AIMResultArray = #AIMResult -> split('|');
 
     if(#AIMResultArray -> size == 1);
-// uh-oh.  There was a failure.  Check your configuration in the Merchant Interface or in this tag.
+        // uh-oh.  There was a failure.  Check your configuration in the Merchant Interface or in this tag.
         #output = #AIMResult;
 
     else;
-// Yippee!  The gateway returned a response we can parse to determine whether the transaction was successful or has failed.
+        // Yippee!  The gateway returned a response we can parse to determine whether the transaction was successful or has failed.
         #output = map;
+        
         iterate(#AIMResultArray, local('current_result'));
 
             if(#aimresultlabels -> size > loop_count);
-// We are within the range of defined results labels.
+                // We are within the range of defined results labels.
                 local('current_label' = #aimresultlabels -> get(loop_count));
 
                 if(#current_result != '');
-                    #output -> insert((#current_label)=(#current_result));
+                    #output -> insert(#current_label = #current_result);
                 /if;
 
             else;
-// We are outside the range of defined results labels, and so we create ennumerated labels.
+                // We are outside the range of defined results labels, and so we create ennumerated labels.
                 local('current_label' = 'x_out_of_range_label_'+loop_count);
 
                 if(#current_result != '');
-                    #output -> insert((#current_label)=(#current_result));
+                    #output -> insert(#current_label = #current_result);
                 /if;
             /if;
         /iterate;
