@@ -10,7 +10,7 @@ Description
 
 This tag is an update to the `AuthorizeNet_AIM
 <https://github.com/stevepiercy/AuthorizeNet_AIM>`_ payment processing tag for
-Lasso 8 and the new Authorize.Net AIM v3.1 payment processing gateway.
+Lasso 8 and the Authorize.Net AIM v3.1 payment processing gateway.
 
 This tag has one required parameter, ``-AIMParams``, and two optional
 parameters, ``-testdeveloper`` and ``-testrequest``.
@@ -39,8 +39,8 @@ Support Free and Open Source Software Contributions
 
 If you like this tag or documentation, or think I need to spend less time at
 the computer and take my wife out on a date night, then consider sending
-either a recurring donation via `GitTip
-<https://www.gittip.com/stevepiercy/>`_ for as small as 25¢ per week, or a
+either a recurring donation via `Gratipay
+<https://gratipay.com/knopproject/>`_ for as small as 25¢ per week, or a
 one-time donation via `PayPal
 <https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=web%40stevepiercy%2ecom&lc=US&item_name=Steve%20Piercy%20%2d%20Website%20Builder&item_number=spwb&currency_code=USD&bn=PP%2dDonationsBF%3adonate_now%2epng%3aNonHosted>`_.
 
@@ -250,36 +250,45 @@ guarantee of service.  This information is provided for the sake of
 comparison.  These are the lowest fees I have found over the years.
 
 For further information on developing for AIM, download the `AIM Guide
-<http://www.Authorize.Net/support/AIM_guide.pdf>`_.
+<http://www.authorize.net/content/dam/authorize/documents/AIM_guide.pdf>`_.
 
 You can sign up for a `developer sandbox account
-<https://developer.Authorize.Net/sandbox/>`_, or you can have the client
-purchase their own `Authorize.Net payment gateway account
-<http://reseller.authorize.net/application?resellerId=11937>`_ and
-create a "webmaster" user that has the required access.
+<https://developer.authorize.net/hello_world/sandbox/>`_, or you can have the
+client purchase their own `Authorize.Net payment gateway account
+<http://reseller.authorize.net/application?resellerId=11937>`_ and create a
+"webmaster" user that has the required access.
 
 In addition to this tag, the following are requirements.
 
-#. Dedicated IP for SSL (~$10/month).
-#. SSL.
-#. `Secure certificate <http://www.namecheap.com/?aff=26253>`_ (starting at
-   $10/year from NameCheap.com)
-#. `Merchant account <http://www.takecardstoday.com/#oid=1457_2>`_
-   that accepts payments over the Internet.  Some brick and mortar retailers
+#. Dedicated IP for TLS (~$10/month).
+#. TLS.
+#. Secure certificate, starting at $10/year from NameCheap, or use `Let's
+   Encrypt <https://letsencrypt.org/getting-started/>`_ for a free secure
+   certificate. You can support the continued development of the
+   ``AuthorizeNet_AIM_9`` method using my `NameCheap referral link
+   <http://www.namecheap.com/?aff=26253>`_. 
+#. Merchant account that accepts payments over the Internet. If you need a
+   merchant account, you can support the continued development of the
+   ``AuthorizeNet_AIM_9`` method using my `Capital Merchant Solutions referral
+   link <http://www.takecardstoday.com/#oid=1457_2>`_. As of May 28, 2014, the
+   merchant account costs $8.95/month (for a statement fee), plus 2.14% of the
+   transaction amount and 24¢ per transaction. Everything else is free.
+#. Payment gateway (an Authorize.Net account, for example). Some entities
    already have a merchant account, so sometimes it is easier to add this
-   feature to their existing merchant account. If you need a merchant account,
-   you can support the continued development of the ``AuthorizeNet_AIM`` tag
-   using my `referral link <http://www.takecardstoday.com/#oid=1457_2>`_.
-   As of May 28, 2014, the merchant account costs $8.95/month (for a statement
-   fee), plus 2.14% of the transaction amount and 24¢ per transaction.
-   Everything else is free.
-#. payment gateway (an Authorize.Net account, for example). I am an
-   Authorize.Net account reseller. You can support the continued development
-   of the ``AuthorizeNet_AIM`` tag by following my `reseller link
-   <http://reseller.authorize.net/application?resellerId=11937>`_.
-   Effective November 7, 2014, the cost is $25/month, with $49 account setup
-   fee, $0.10 per transaction, and $0.10 per batch of transactions in a given
-   day.
+   feature to their existing merchant account. I am an Authorize.Net reseller.
+   You can support the continued development of the ``AuthorizeNet_AIM_9``
+   method by following my `Authorize.Net reseller link
+   <http://reseller.authorize.net/application?resellerId=11937>`_. Effective
+   July 1, 2016, the cost is $15/month, with a $25 account setup fee, $0.05
+   per transaction, and $0.07 per batch of transactions in a given day.
+#. A combined payment gateway and merchant account is also available from
+   Authorize.Net. You can support the continued development of the
+   ``AuthorizeNet_AIM_9`` method by following my `Authorize.Net reseller link
+   <http://reseller.authorize.net/application?resellerId=11937>`_. Effective
+   July 1, 2016, the cost is $15/month, with a $25 account setup fee, and a
+   2.9% plus $0.30 per transaction fee. This option may be more convenient,
+   especially for new online merchants or for processing a small number of
+   transactions.
 
 I am available as a consultant for ecommerce solutions. Please visit `Services
-</services/>`_ for more information.
+<http://www.stevepiercy.com/services/>`_ for more information.
