@@ -110,7 +110,7 @@ You can choose to either set configuration values in this tag below or pass them
 
     iterate(#AIMParams, local('CurrentAIMParam'));
         #AIMParamArray -> insert((#CurrentAIMParam -> first)=(#CurrentAIMParam -> second));
-        #curl ? #curl_post_data -> append(' -d ' + encode_url(#CurrentAIMParam -> first) + '=' + encode_url(#CurrentAIMParam -> second));
+        #curl ? #curl_post_data -> append(' -d ' + encode_stricturl(#CurrentAIMParam -> first) + '=' + encode_stricturl(#CurrentAIMParam -> second));
     /iterate;
 
     // The first 68 result labels are reserved by the AIM gateway for version 3.1.  Do not alter their order or names.
