@@ -1,3 +1,7 @@
+1.7.1 (2017-12-21)
+==================
+* Changed encoding of values to encode_stricturl so that curl doesn't barf on reserved characters.
+
 1.7.0 (2016-05-25)
 ==================
 * Added parameters ``curl`` and ``tlsv12`` to bypass bug in Lasso 8.6. This
