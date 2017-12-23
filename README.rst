@@ -44,12 +44,7 @@ the computer and take my wife out on a date night, then consider sending a donat
 .. raw:: html
 
     <div class="row">
-        <div class="small-6 columns text-center">
-            <p>GitTip</p>
-            <script data-gittip-username="stevepiercy"
-        src="//gttp.co/v1.js"></script>
-        </div>
-        <div class="small-6 columns text-center">
+        <div class="small-12 columns text-center">
             <p>PayPal</p>
             <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
                 <input type="hidden" name="cmd" value="_s-xclick">
@@ -60,7 +55,7 @@ the computer and take my wife out on a date night, then consider sending a donat
         </div>
     </div>
 
-Duke accepts donations of biscuits and cabbages.  woof.
+Boogy accepts donations of biscuits and cabbages.  woof.
 
 Usage
 =====
