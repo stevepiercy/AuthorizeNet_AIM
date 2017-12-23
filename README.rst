@@ -38,8 +38,7 @@ Support Free and Open Source Software Contributions
 ===================================================
 
 If you like this tag or documentation, or think I need to spend less time at
-the computer and take my wife out on a date night, then consider sending
-either a recurring donation via a one-time donation via `PayPal
+the computer and take my wife out on a date night, then consider sending a donation via `PayPal
 <https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=web%40stevepiercy%2ecom&lc=US&item_name=Steve%20Piercy%20%2d%20Website%20Builder&item_number=spwb&currency_code=USD&bn=PP%2dDonationsBF%3adonate_now%2epng%3aNonHosted>`_.
 
 .. raw:: html
